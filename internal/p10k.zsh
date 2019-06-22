@@ -2088,6 +2088,14 @@ prompt_kubecontext() {
   fi
 
   [[ -n $_P9K_CACHE_VAL[1] ]] || return
+
+  if [[ $POWERLEVEL9K_KUBECONTEXT_SHOW_DEFAULT_NAMESPACE == true &&
+        $ctx == "$POWERLEVEL9K_DEFAULT_KUBECTL_CONFIG/default" ]]; then
+      return
+  elif [[ $POWERLEVEL9K_KUBECONTEXT_SHOW_DEFAULT_NAMESPACE == false &&
+        $ctx == "$POWERLEVEL9K_DEFAULT_KUBECTL_CONFIG" ]]; then
+      return
+  fi
   $1_prompt_segment $0$_P9K_CACHE_VAL[2] $2 magenta white KUBERNETES_ICON 0 '' "${_P9K_CACHE_VAL[1]//\%/%%}"
 }
 
